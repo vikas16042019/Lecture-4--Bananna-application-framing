@@ -3,7 +3,7 @@ var txtInput= document.querySelector("#txt-input");
 var outputDiv= document.querySelector("#output");
 btnTranslate.addEventListener("click", clickevent )
 
-var userURl= "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json"
+var userURl= "https://api.funtranslations.com/translate/minion.json"
 
 function getURL(text)
 {
@@ -20,8 +20,12 @@ function errorHandler(error)
 function clickevent()
 {
     var inputText= txtInput.value;
+
     fetch(getURL(inputText))
-    .then(response => response.json)
-    .then(json => console.log(json.contents.translated))
-    .catch(errorHandler)
-}
+        .then(response=>response.json())
+        .then(json=>{
+            var translatedText= json.contents.translated
+            outputDiv.innerText= translatedText;
+        })
+        .catch(errorHandler);
+    }
